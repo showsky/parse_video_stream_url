@@ -1,12 +1,10 @@
 
-public class Main {
-	
+public class Client {
+
 	public static void main(String[] args) {
-		String youtube = "https://www.youtube.com/watch?v=YVLIn6xMSh0";
-		
+		String url = args[0];
 		YoutubeParse youtubeParse = new YoutubeParse();
-		youtubeParse.parse(youtube);
-		
+		youtubeParse.parse(url);
 		System.out.println(youtubeParse.getUrl());
 	}
 }

@@ -17,6 +17,7 @@ public class YoutubeParse extends VideoParse {
 	@Override
 	public String parse(String url) {
 		String html = getHTML(url);
+		//System.out.println(html);
 		Pattern pattern = Pattern.compile(PARSE_PATTERN);
 		Matcher matcher = pattern.matcher(html);
 		String urlencodeContent = null;
@@ -25,6 +26,7 @@ public class YoutubeParse extends VideoParse {
 			urlencodeContent = matcher.group(1);
         }
 		
+		//System.out.println(urlencodeContent);
 		try {
 			urldecodeContent = urldecode(urlencodeContent);
 		} catch (UnsupportedEncodingException e) {
