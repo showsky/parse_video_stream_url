@@ -1,4 +1,13 @@
 parse_youtube_stream_url
 ========================
 
-parse youtube stream url
+* Example
+
+```
+String youtube = "https://www.youtube.com/watch?v=pDkGB8OCrXg";
+
+YoutubeParse youtubeParse = new YoutubeParse();
+youtubeParse.parse(youtube);
+        
+System.out.println(youtubeParse.getUrl());
+```
