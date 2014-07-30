@@ -2,7 +2,7 @@ parse_youtube_stream_url
 ========================
 
 * Support
-    * youtbue
+    * youtube
     * dailymotion
 
 * Example
