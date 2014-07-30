@@ -2,11 +2,15 @@
 public class Main {
 	
 	public static void main(String[] args) {
-		String youtube = "https://www.youtube.com/watch?v=YVLIn6xMSh0";
 		
-		YoutubeParse youtubeParse = new YoutubeParse();
-		youtubeParse.parse(youtube);
+		//	Youtube hash id
+		String youtubeID = "MQy8_7NqU78";
 		
-		System.out.println(youtubeParse.getUrl());
+		VideoParse parse = new YoutubeParse();
+		parse.parse(youtubeID);
+		
+		System.out.println("Title: " + parse.getTitle());
+		System.out.println("Image url: " + parse.getImageUrl());
+		System.out.println("Stream url: " + parse.getUrl());
 	}
 }

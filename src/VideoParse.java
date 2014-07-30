@@ -35,9 +35,12 @@ public abstract class VideoParse {
 		return URLDecoder.decode(content, "UTF-8");
 	}
 	
-	abstract public String parse(String url);
+	abstract public boolean parse(String url);
 	abstract public String getUrl();
 	abstract public String getMediumUrl();
 	abstract public String getSmallUrl();
 	abstract public String getHighUrl();
+	abstract public String getTitle();
+	abstract public String getDescription();
+	abstract public String getImageUrl();
 }
