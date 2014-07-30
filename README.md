@@ -1,4 +1,4 @@
-parse_youtube_stream_url
+Parse video stream url v1.0.0
 ========================
 
 * Support

@@ -5,10 +5,12 @@ import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLDecoder;
+import java.util.HashMap;
 
 
 public abstract class VideoParse {
 	
+	protected HashMap<QUALITY, String> stream = new HashMap<QUALITY, String>(3);
 	protected enum QUALITY {
 		HIGH,
 		MEDIUM,
@@ -41,11 +43,31 @@ public abstract class VideoParse {
 		return URLDecoder.decode(content, "UTF-8");
 	}
 	
+	public String getMediumUrl() {
+		return stream.get(QUALITY.MEDIUM);
+	}
+	
+	public String getSmallUrl() {
+		return stream.get(QUALITY.SMALL);
+	}
+	
+	public String getHighUrl() {
+		return stream.get(QUALITY.HIGH);
+	}
+	
+	public String getUrl() {
+		String url = null;
+		if (getHighUrl() != null) {
+			url = getHighUrl();
+		} else if (getMediumUrl() != null) {
+			url = getMediumUrl();
+		} else if (getSmallUrl() != null) {
+			url = getSmallUrl();
+		}
+		return url;
+	}
+	
 	abstract public boolean parse(String url);
-	abstract public String getUrl();
-	abstract public String getMediumUrl();
-	abstract public String getSmallUrl();
-	abstract public String getHighUrl();
 	abstract public String getTitle();
 	abstract public String getDescription();
 	abstract public String getImageUrl();

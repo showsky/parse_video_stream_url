@@ -1,16 +1,21 @@
-import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 
 public class DialymotionParse extends VideoParse {
 	
 	private final static String URL = "http://www.dailymotion.com/embed/video/";
-	private final static String PATTERN_INFO = "var info = \\{(.+)\\}\\}";
-	private HashMap<QUALITY, String> stream = new HashMap<QUALITY, String>(3);
+	private final static String TITLE = "title";
+	private final static String IMAGE_URL = "thumbnail_large_url";
+	private final static String PATTERN_INFO = "var info = (\\{.+\\}\\})";
+	private JSONObject jsonObject = null;
 
 	@Override
 	public boolean parse(String hashID) {
+		stream.clear();
 		String source = getHTML(URL + hashID);
 		Pattern pattern = Pattern.compile(PATTERN_INFO);
 		Matcher matcher = pattern.matcher(source);
@@ -18,72 +23,50 @@ public class DialymotionParse extends VideoParse {
 			String info = matcher.group(1);
 			//System.out.println(info);
 			
-			String temps[] = info.split(",");
-			for (String temp: temps) {
-				//System.out.println(temp);
-				
-				if ( ! stream.containsKey(QUALITY.HIGH)) {
-					if (temp.indexOf("stream_h264_hd1080_url") != -1 ||
-							temp.indexOf("stream_h264_hd_url") != -1) {
-						stream.put(QUALITY.HIGH, checkUrl(temp));
-						continue;
-					}
-				} else if ( ! stream.containsKey(QUALITY.MEDIUM)) {
-					if (temp.indexOf("stream_h264_hq_url") != -1) {
-						stream.put(QUALITY.MEDIUM, checkUrl(temp));
-						continue;
-					}
-				} else if ( ! stream.containsKey(QUALITY.SMALL)) {
-					if (temp.indexOf("stream_h264_url") != -1) {
-						stream.put(QUALITY.SMALL, checkUrl(temp));
-						continue;
-					}
+			try {
+				jsonObject = new JSONObject(info);
+				if ( ! jsonObject.isNull("stream_h264_hd1080_url") && ! checkNull(jsonObject.getString("stream_h264_hd1080_url"))) {
+					stream.put(QUALITY.HIGH, jsonObject.getString("stream_h264_hd1080_url"));
+				} else if ( ! jsonObject.isNull("stream_h264_hd_url") && ! checkNull(jsonObject.getString("stream_h264_hd_url"))) {
+					stream.put(QUALITY.HIGH, jsonObject.getString("stream_h264_hd_url"));
 				}
+				
+				if ( ! jsonObject.isNull("stream_h264_hq_url") && ! checkNull(jsonObject.getString("stream_h264_hq_url"))) {
+					stream.put(QUALITY.MEDIUM, jsonObject.getString("stream_h264_hq_url"));
+				} else if ( ! jsonObject.isNull("stream_h264_url") && ! checkNull(jsonObject.getString("stream_h264_url"))) {
+					stream.put(QUALITY.MEDIUM, jsonObject.getString("stream_h264_url"));
+				}
+				
+				if ( ! jsonObject.isNull("stream_h264_ld_url")) {
+					stream.put(QUALITY.SMALL, jsonObject.getString("stream_h264_ld_url"));
+				}
+			} catch (JSONException e) {
+				e.printStackTrace();
+				return false;
 			}
 			
 		}
 		return true;
 	}
 	
-	private String checkUrl(String temp) {
-		temp = temp.replace("/", "");
-		String content[] = temp.split("\":\"");
-		int length = content[1].length();
-		return content[1].substring(0, length -1);
-	}
-
-	@Override
-	public String getUrl() {
-		String url = null;
-		if (getHighUrl() != null) {
-			url = getHighUrl();
-		} else if (getMediumUrl() != null) {
-			url = getMediumUrl();
-		} else if (getSmallUrl() != null) {
-			url = getSmallUrl();
+	private boolean checkNull(String content) {
+		if (content == null || "".equals(content)) {
+			return true;
 		}
-		return url;
-	}
-
-	@Override
-	public String getMediumUrl() {
-		return stream.get(QUALITY.MEDIUM);
-	}
-
-	@Override
-	public String getSmallUrl() {
-		return stream.get(QUALITY.SMALL);
-	}
-
-	@Override
-	public String getHighUrl() {
-		return stream.get(QUALITY.HIGH);
+		return false;
 	}
 
 	@Override
 	public String getTitle() {
-		//TODO:
-		return null;
+		String title = null;
+		if (jsonObject != null) {
+			try {
+				title = jsonObject.getString(TITLE);
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+		}
+		return title;
 	}
 
 	@Override
@@ -94,8 +77,15 @@ public class DialymotionParse extends VideoParse {
 
 	@Override
 	public String getImageUrl() {
-		//TODO:
-		return null;
+		String imageUrl = null;
+		if (jsonObject != null) {
+			try {
+				imageUrl = jsonObject.getString(IMAGE_URL);
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+		}
+		return imageUrl;
 	}
 
 }

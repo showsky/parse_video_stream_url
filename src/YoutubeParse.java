@@ -2,7 +2,6 @@ import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 
 
-
 public class YoutubeParse extends VideoParse {
 	
 	private final static String URL = "http://www.youtube.com/get_video_info?video_id=";
@@ -10,10 +9,10 @@ public class YoutubeParse extends VideoParse {
 	private final static String IMAGE_URL = "thumbnail_url";
 	private final static String STREAM_MAP = "url_encoded_fmt_stream_map";
 	private HashMap<String, String> parameter = new HashMap<String, String>();
-	private HashMap<QUALITY, String> stream = new HashMap<QUALITY, String>(3);
 	
 	@Override
 	public boolean parse(String youtubeID) {
+		stream.clear();
 		String source = getHTML(URL + youtubeID);
 		String pairs[] = source.split("&");
 		
@@ -64,7 +63,7 @@ public class YoutubeParse extends VideoParse {
 		return true;
 	}
 	
-	public String checkUrl(String content) {
+	private String checkUrl(String content) {
 		String temps[] = content.split("&");
 		String url = null;
 		for (String temp: temps) {
@@ -78,34 +77,6 @@ public class YoutubeParse extends VideoParse {
 			}
 		}
 		return url;
-	}
-	
-	@Override
-	public String getUrl() {
-		String url = null;
-		if (getHighUrl() != null) {
-			url = getHighUrl();
-		} else if (getMediumUrl() != null) {
-			url = getMediumUrl();
-		} else if (getSmallUrl() != null) {
-			url = getSmallUrl();
-		}
-		return url;
-	}
-	
-	@Override
-	public String getMediumUrl() {
-		return stream.get(QUALITY.MEDIUM);
-	}
-	
-	@Override
-	public String getSmallUrl() {
-		return stream.get(QUALITY.SMALL);
-	}
-	
-	@Override
-	public String getHighUrl() {
-		return stream.get(QUALITY.HIGH);
 	}
 
 	@Override
