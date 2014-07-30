@@ -1,16 +1,26 @@
 parse_youtube_stream_url
 ========================
 
-* Example
+* Support
+** youtbue
+** dailymotion
 
+* Example
 ```
 //  Youtube hash id
-String youtubeID = "MQy8_7NqU78";
-    
-VideoParse parse = new YoutubeParse();
-parse.parse(youtubeID);
-    
-System.out.println("Title: " + parse.getTitle());
-System.out.println("Image url: " + parse.getImageUrl());
-System.out.println("Stream url: " + parse.getUrl());
+String youtubeID = "fT6URJnpPH0";
+VideoParse youtubeParse = new YoutubeParse();
+youtubeParse.parse(youtubeID);
+
+System.out.println("[youtube]");
+System.out.println("Title: " + youtubeParse.getTitle());
+System.out.println("Image url: " + youtubeParse.getImageUrl());
+System.out.println("Stream url: " + youtubeParse.getUrl());
+
+// dailymotion hash id
+String dailymotionID = "x1sr8o3";
+VideoParse dailymotionParse = new DialymotionParse();
+dailymotionParse.parse(dailymotionID);
+System.out.println("[dailymotion]");
+System.out.println("Stream url: " + dailymotionParse.getUrl());
 ```

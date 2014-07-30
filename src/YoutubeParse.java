@@ -9,11 +9,6 @@ public class YoutubeParse extends VideoParse {
 	private final static String TITLE = "title";
 	private final static String IMAGE_URL = "thumbnail_url";
 	private final static String STREAM_MAP = "url_encoded_fmt_stream_map";
-	private enum QUALITY {
-		HIGH,
-		MEDIUM,
-		SMALL,
-	}
 	private HashMap<String, String> parameter = new HashMap<String, String>();
 	private HashMap<QUALITY, String> stream = new HashMap<QUALITY, String>(3);
 	
@@ -47,14 +42,17 @@ public class YoutubeParse extends VideoParse {
 				if ( ! stream.containsKey(QUALITY.HIGH)) {
 					if (content.indexOf("hd720") != 1) {
 						stream.put(QUALITY.HIGH, checkUrl(content));
+						continue;
 					}
 				} else if ( ! stream.containsKey(QUALITY.MEDIUM)) {
 					if (content.indexOf("medium") != 1) {
 						stream.put(QUALITY.MEDIUM, checkUrl(content));
+						continue;
 					}
 				} else if ( ! stream.containsKey(QUALITY.SMALL)) {
 					if (content.indexOf("small") != 1) {
 						stream.put(QUALITY.SMALL, checkUrl(content));
+						continue;
 					}
 				}
 			}

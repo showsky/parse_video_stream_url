@@ -8,6 +8,12 @@ import java.net.URLDecoder;
 
 
 public abstract class VideoParse {
+	
+	protected enum QUALITY {
+		HIGH,
+		MEDIUM,
+		SMALL,
+	}
 
 	protected static String getHTML(String urlString) {
 	    HttpURLConnection conn;
