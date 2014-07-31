@@ -31,7 +31,7 @@ System.out.println("Stream url: " + dailymotionParse.getUrl());
 * [type]
     * 0 youtube
     * 1 dailymotion
-    * youku
+    * 2 youku
 * screenshot
 
 ![image](https://raw.githubusercontent.com/showsky/parse_video_stream_url/master/screenshot/2014-08-01_00-14-23.jpg)
