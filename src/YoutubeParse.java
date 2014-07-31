@@ -11,9 +11,9 @@ public class YoutubeParse extends VideoParse {
 	private HashMap<String, String> parameter = new HashMap<String, String>();
 	
 	@Override
-	public boolean parse(String youtubeID) {
+	public boolean parse(String hashID) {
 		stream.clear();
-		String source = getHTML(URL + youtubeID);
+		String source = getHTML(URL + hashID);
 		String pairs[] = source.split("&");
 		
 		for (String pair: pairs) {

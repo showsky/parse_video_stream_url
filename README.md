@@ -1,11 +1,12 @@
 Parse video stream url v1.0.0
 ========================
 
-* Support
-    * youtube
-    * dailymotion
+### Support ###
+* youtube
+* dailymotion
+* youku (Beta)
 
-* Example
+### Example ###
 ```
 //  Youtube hash id
 String youtubeID = "fT6URJnpPH0";
@@ -24,3 +25,12 @@ dailymotionParse.parse(dailymotionID);
 System.out.println("[dailymotion]");
 System.out.println("Stream url: " + dailymotionParse.getUrl());
 ```
+
+### Java run ###
+* java -jar parse.jar [type] [hashID]
+* [type]
+    * 0 youtube
+    * 1 dailymotion
+    * youku
+* screenshot
+![image](https://github.com/showsky/parse_video_stream_url/screenshot/2014-08-01_00-14-23.jpg)

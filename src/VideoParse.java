@@ -67,7 +67,7 @@ public abstract class VideoParse {
 		return url;
 	}
 	
-	abstract public boolean parse(String url);
+	abstract public boolean parse(String hashID);
 	abstract public String getTitle();
 	abstract public String getDescription();
 	abstract public String getImageUrl();

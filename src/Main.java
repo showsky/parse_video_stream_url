@@ -19,5 +19,10 @@ public class Main {
 		dailymotionParse.parse(dailymotionID);
 		System.out.println("[dailymotion]");
 		System.out.println("Stream url: " + dailymotionParse.getUrl());
+		
+		//	Yukuo hash id
+		String youkuId = "XNzQ4MTYwNzk2";
+		VideoParse youkuParse = new YoukuParse();
+		youkuParse.parse(youkuId);
 	}
 }

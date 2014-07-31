@@ -3,7 +3,8 @@ public class ParseUtils {
 	
 	public enum VIDEO_TYPE {
 		YOUTUBE,
-		DIALYMOTION
+		DIALYMOTION,
+		YOUKU,
 	}
 	
 	public static VideoParse parse(VIDEO_TYPE type, String hashID) {
