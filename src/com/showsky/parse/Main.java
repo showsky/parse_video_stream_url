@@ -1,10 +1,11 @@
+package com.showsky.parse;
 
 public class Main {
 	
 	public static void main(String[] args) {
 		
 		//	Youtube hash id
-		String youtubeID = "fT6URJnpPH0";
+		String youtubeID = "FVsJ35gCcQA";
 		VideoParse youtubeParse = new YoutubeParse();
 		youtubeParse.parse(youtubeID);
 		
@@ -13,6 +14,7 @@ public class Main {
 		System.out.println("Image url: " + youtubeParse.getImageUrl());
 		System.out.println("Stream url: " + youtubeParse.getUrl());
 		
+		/*
 		// dailymotion hash id
 		String dailymotionID = "x1sr8o3";
 		VideoParse dailymotionParse = new DialymotionParse();
@@ -24,5 +26,6 @@ public class Main {
 		String youkuId = "XNzQ4MTYwNzk2";
 		VideoParse youkuParse = new YoukuParse();
 		youkuParse.parse(youkuId);
+		*/
 	}
 }
