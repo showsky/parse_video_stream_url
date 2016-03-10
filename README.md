@@ -1,6 +1,8 @@
 Parse video stream url v1.0.0
 ---
 
+*A long time without maintenance*
+
 ### Support ###
 * youtube
 * dailymotion
